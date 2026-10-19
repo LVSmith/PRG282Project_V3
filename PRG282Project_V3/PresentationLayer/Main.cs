@@ -1,31 +1,25 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using PRG282Project_V3.BusinessLayer;
 using PRG282Project_V3.DataLayer;
 
-namespace PRG282Project_V3
-{
-    public partial class Main : Form
-    {
+namespace PRG282Project_V3 {
+    public partial class Main : Form {
         private AnimalManager manager = new AnimalManager();
 
-        public Main()
-        {
+        public Main() {
             InitializeComponent();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
+        private void btnAdd_Click(object sender, EventArgs e) {
             if (!manager.ValidateAnimal(txtAnimalId.Text, txtName.Text, txtSpecies.Text, txtAge.Text, txtScore.Text,
-                    true, out Animal animal, out string error, out string field))
-            {
+                    true, out Animal animal, out string error, out string field)) {
                 MessageBox.Show(error, @"Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 FocusField(field);
                 return;
             }
 
-            if (!manager.AddAnimal(animal, out error))
-            {
+            if (!manager.AddAnimal(animal, out error)) {
                 MessageBox.Show(error, @"Save failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -35,10 +29,8 @@ namespace PRG282Project_V3
             txtAnimalId.Focus();
         }
 
-        private void FocusField(string field)
-        {
-            TextBox box = field switch
-            {
+        private void FocusField(string field) {
+            TextBox box = field switch {
                 "AnimalID" => txtAnimalId,
                 "Name" => txtName,
                 "Species" => txtSpecies,
