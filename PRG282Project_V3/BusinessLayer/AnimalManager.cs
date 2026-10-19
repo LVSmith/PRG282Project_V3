@@ -7,6 +7,11 @@ namespace PRG282Project_V3.BusinessLayer {
     public class AnimalManager {
         private DataHandler dataHandler = new DataHandler();
 
+        /// <summary>
+        /// Works out an animal's status and housing unit from its recovery score.
+        /// </summary>
+        /// <param name="score">Recovery score from 0 to 100.</param>
+        /// <returns>The status and housing unit for that score.</returns>
         public (string Status, string HousingUnit) Classify(int score) {
             if (score <= 19) return ("Critical", "Intensive Care Unit");
             if (score <= 39) return ("Serious", "High-Dependency Ward");
@@ -15,6 +20,14 @@ namespace PRG282Project_V3.BusinessLayer {
             return ("Release-Ready", "Pre-Release Camp");
         }
 
+        /// <summary>
+        /// Trims and checks the form input, and builds a classified animal if everything is valid.
+        /// </summary>
+        /// <param name="isNew">True when adding, so the ID must not already exist.</param>
+        /// <param name="animal">The finished animal, or null if validation failed.</param>
+        /// <param name="error">A message describing what is wrong.</param>
+        /// <param name="field">The name of the field that failed, so the form can focus it.</param>
+        /// <returns>True if all input is valid.</returns>
         public bool ValidateAnimal(string id, string name, string species, string ageText, string scoreText, bool isNew,
             out Animal animal, out string error, out string field) {
             animal = null;
@@ -68,10 +81,20 @@ namespace PRG282Project_V3.BusinessLayer {
             return true;
         }
 
+        /// <summary>
+        /// Saves a new animal to the end of the file.
+        /// </summary>
+        /// <param name="animal">A validated animal.</param>
+        /// <param name="error">A message describing why saving failed.</param>
+        /// <returns>True if the animal was saved.</returns>
         public bool AddAnimal(Animal animal, out string error) {
             return dataHandler.AddAnimal(animal, out error);
         }
 
+        /// <summary>
+        /// Replaces an existing animal's details, re-classifies it, and saves the file.
+        /// </summary>
+        /// <param name="updatedAnimal">The animal with its new details. The ID is used to find the record.</param>
         public void UpdateAnimal(Animal updatedAnimal) {
             var animals = dataHandler.LoadAnimals();
             var existing = animals.Find(a => a.AnimalID.Equals(updatedAnimal.AnimalID, StringComparison.OrdinalIgnoreCase));
@@ -88,6 +111,10 @@ namespace PRG282Project_V3.BusinessLayer {
             dataHandler.SaveAnimals(animals);
         }
 
+        /// <summary>
+        /// Gets every animal from the file.
+        /// </summary>
+        /// <returns>A list of all animals.</returns>
         public List<Animal> GetAllAnimals() {
             return dataHandler.LoadAnimals();
         }

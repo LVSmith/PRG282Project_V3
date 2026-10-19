@@ -18,6 +18,9 @@ namespace PRG282Project_V3.PresentationLayer {
 
         private void textBox1_TextChanged(object sender, EventArgs e) { }
 
+        /// <summary>
+        /// Finds an animal by ID, name or species and fills the boxes with its details
+        /// </summary>
         private void btnSearch_Click(object sender, EventArgs e) {
             string id = txbOUID.Text.Trim();
             string name = txbOUName.Text.Trim();
@@ -49,6 +52,9 @@ namespace PRG282Project_V3.PresentationLayer {
             }
         }
 
+        /// <summary>
+        /// Clears all boxes and disables the NEW panel
+        /// </summary>
         private void btnUClear_Click(object sender, EventArgs e) {
             foreach (Control c in this.Controls) {
                 if (c is TextBox tbx) tbx.Clear();
@@ -57,12 +63,18 @@ namespace PRG282Project_V3.PresentationLayer {
             pnlNew.Enabled = false; // disable NEW panel again
         }
 
+        /// <summary>
+        /// Goes back to the main form.
+        /// </summary>
         private void btnReturn_Click(object sender, EventArgs e) {
             Main mainForm = new Main();
             mainForm.Show();
             this.Hide();
         }
 
+        /// <summary>
+        /// Validates the edited details and saves them over the existing record
+        /// </summary>
         private void btnSaveChanges_Click(object sender, EventArgs e) {
             if (manager.ValidateAnimal(txbOUID.Text, txbOUName.Text, txbOUSpecies.Text, txbOUAge.Text, txbOURecoveryScore.Text,
                     false, out Animal updatedAnimal, out string error, out string field)) {
@@ -76,6 +88,10 @@ namespace PRG282Project_V3.PresentationLayer {
             }
         }
 
+        /// <summary>
+        /// Puts the cursor in the box for the given field and selects its text
+        /// </summary>
+        /// <param name="field">The field name returned by ValidateAnimal</param>
         private void FocusField(string field) {
             TextBox box = field switch {
                 "AnimalID" => txbOUID,
@@ -90,6 +106,9 @@ namespace PRG282Project_V3.PresentationLayer {
             box.SelectAll();
         }
 
+        /// <summary>
+        /// Disables the NEW panel until an animal has been found
+        /// </summary>
         private void Update_Load(object sender, EventArgs e) {
             pnlNew.Enabled = false; // disable NEW panel on load
         }

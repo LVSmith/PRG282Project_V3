@@ -7,6 +7,10 @@ namespace PRG282Project_V3.DataLayer {
     public class DataHandler {
         private readonly string filePath = "animals.txt";
 
+        /// <summary>
+        /// Reads all animals from the .txt file, it creates the file if it does not already exist and skips any errored linse
+        /// </summary>
+        /// <returns>A list of all animals in the file</returns>
         public List<Animal> LoadAnimals() {
             var animals = new List<Animal>();
             if (!File.Exists(filePath)) File.Create(filePath).Close();
@@ -29,11 +33,21 @@ namespace PRG282Project_V3.DataLayer {
             return animals;
         }
 
+        /// <summary>
+        /// Overwrites the file with the list of animals
+        /// </summary>
+        /// <param name="animals">Every animal to keep in the file</param>
         public void SaveAnimals(List<Animal> animals) {
             var lines = animals.Select(a => $"{a.AnimalID}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}");
             File.WriteAllLines(filePath, lines);
         }
 
+        /// <summary>
+        /// Appends one animal as a new line at the end of the file
+        /// </summary>
+        /// <param name="a">The animal to append</param>
+        /// <param name="error">A message describing why writing failed</param>
+        /// <returns>True if the line was written</returns>
         public bool AddAnimal(Animal a, out string error) {
             error = "";
             try {
