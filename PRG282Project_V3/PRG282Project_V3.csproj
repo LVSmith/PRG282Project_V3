@@ -49,10 +49,10 @@
     <Compile Include="BusinessLayer\AnimalManager.cs" />
     <Compile Include="DataLayer\Animal.cs" />
     <Compile Include="DataLayer\DataHandeler.cs" />
-    <Compile Include="Main.cs">
+    <Compile Include="PresentationLayer\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
+    <Compile Include="PresentationLayer\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
