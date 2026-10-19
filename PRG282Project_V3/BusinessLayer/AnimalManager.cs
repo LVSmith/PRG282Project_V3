@@ -1,4 +1,4 @@
-﻿using PRG282Project_V3.DataLayer;
+using PRG282Project_V3.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -7,45 +7,69 @@ namespace PRG282Project_V3.BusinessLayer {
     public class AnimalManager {
         private DataHandler dataHandler = new DataHandler();
 
-        public string ClassifyStatus(int score) {
-            if (score <= 19) return "Critical";
-            if (score <= 39) return "Serious";
-            if (score <= 59) return "Stable";
-            if (score <= 79) return "Recovering";
-            return "Release-Ready";
+        public (string Status, string HousingUnit) Classify(int score) {
+            if (score <= 19) return ("Critical", "Intensive Care Unit");
+            if (score <= 39) return ("Serious", "High-Dependency Ward");
+            if (score <= 59) return ("Stable", "Recovery Ward");
+            if (score <= 79) return ("Recovering", "Outdoor Enclosure");
+            return ("Release-Ready", "Pre-Release Camp");
         }
 
-        public string ClassifyHousing(int score) {
-            if (score <= 19) return "Intensive Care Unit";
-            if (score <= 39) return "High-Dependency Ward";
-            if (score <= 59) return "Recovery Ward";
-            if (score <= 79) return "Outdoor Enclosure";
-            return "Pre-Release Camp";
-        }
-
-        public bool ValidateAnimal(Animal animal, out string error) {
+        public bool ValidateAnimal(string id, string name, string species, string ageText, string scoreText, bool isNew,
+            out Animal animal, out string error, out string field) {
+            animal = null;
             error = "";
-            if (Regex.IsMatch(animal.AnimalID, @"^WR-\d{4}$") == false) {
+            field = "";
+
+            id = (id ?? "").Trim().ToUpperInvariant();
+            name = (name ?? "").Trim();
+            species = (species ?? "").Trim();
+            ageText = (ageText ?? "").Trim();
+            scoreText = (scoreText ?? "").Trim();
+
+            if (!Regex.IsMatch(id, @"^WR-\d{4}$")) {
                 error = "Animal ID must be WR- followed by 4 digits.";
+                field = "AnimalID";
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(animal.Name) || animal.Name.Length > 30 || animal.Name.Contains("|")) {
+            if (isNew && GetAllAnimals().Exists(a => a.AnimalID.Equals(id, StringComparison.OrdinalIgnoreCase))) {
+                error = $"Animal ID {id} already exists.";
+                field = "AnimalID";
+                return false;
+            }
+
+            if (name.Length == 0 || name.Length > 30 || name.Contains("|")) {
                 error = "Name must be 1-30 characters and not contain '|'.";
+                field = "Name";
                 return false;
             }
 
-            if (animal.Age < 0 || animal.Age > 100) {
-                error = "Age must be between 0 and 100.";
+            if (species.Length == 0 || species.Length > 30 || species.Contains("|")) {
+                error = "Species must be 1-30 characters and not contain '|'.";
+                field = "Species";
                 return false;
             }
 
-            if (animal.RecoveryScore < 0 || animal.RecoveryScore > 100) {
-                error = "Recovery Score must be between 0 and 100.";
+            if (!int.TryParse(ageText, out int age) || age < 0 || age > 100) {
+                error = "Age must be a whole number between 0 and 100.";
+                field = "Age";
                 return false;
             }
 
+            if (!int.TryParse(scoreText, out int score) || score < 0 || score > 100) {
+                error = "Recovery Score must be a whole number between 0 and 100.";
+                field = "RecoveryScore";
+                return false;
+            }
+
+            var (status, housingUnit) = Classify(score);
+            animal = new Animal(id, name, species, age, score, status, housingUnit);
             return true;
+        }
+
+        public bool AddAnimal(Animal animal, out string error) {
+            return dataHandler.AddAnimal(animal, out error);
         }
 
         public void UpdateAnimal(Animal updatedAnimal) {
@@ -53,12 +77,13 @@ namespace PRG282Project_V3.BusinessLayer {
             var existing = animals.Find(a => a.AnimalID.Equals(updatedAnimal.AnimalID, StringComparison.OrdinalIgnoreCase));
 
             if (existing == null) return;
+            var (status, housingUnit) = Classify(updatedAnimal.RecoveryScore);
             existing.Name = updatedAnimal.Name;
             existing.Species = updatedAnimal.Species;
             existing.Age = updatedAnimal.Age;
             existing.RecoveryScore = updatedAnimal.RecoveryScore;
-            existing.Status = ClassifyStatus(updatedAnimal.RecoveryScore);
-            existing.HousingUnit = ClassifyHousing(updatedAnimal.RecoveryScore);
+            existing.Status = status;
+            existing.HousingUnit = housingUnit;
 
             dataHandler.SaveAnimals(animals);
         }

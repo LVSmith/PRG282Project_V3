@@ -64,22 +64,30 @@ namespace PRG282Project_V3.PresentationLayer {
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e) {
-            var updatedAnimal = new Animal {
-                AnimalID = txbOUID.Text, // ID stays locked
-                Name = txbOUName.Text,
-                Species = txbOUSpecies.Text,
-                Age = int.TryParse(txbOUAge.Text, out int age) ? age : -1,
-                RecoveryScore = int.TryParse(txbOURecoveryScore.Text, out int score) ? score : -1
-            };
-
-            if (manager.ValidateAnimal(updatedAnimal, out string error)) {
+            if (manager.ValidateAnimal(txbOUID.Text, txbOUName.Text, txbOUSpecies.Text, txbOUAge.Text, txbOURecoveryScore.Text,
+                    false, out Animal updatedAnimal, out string error, out string field)) {
                 manager.UpdateAnimal(updatedAnimal);
                 MessageBox.Show(@"Animal updated successfully!");
                 btnUClear.PerformClick(); // clear after save
             }
             else {
                 MessageBox.Show(error);
+                FocusField(field);
             }
+        }
+
+        private void FocusField(string field) {
+            TextBox box = field switch {
+                "AnimalID" => txbOUID,
+                "Name" => txbOUName,
+                "Species" => txbOUSpecies,
+                "Age" => txbOUAge,
+                "RecoveryScore" => txbOURecoveryScore,
+                _ => null
+            };
+            if (box == null) return;
+            box.Focus();
+            box.SelectAll();
         }
 
         private void Update_Load(object sender, EventArgs e) {

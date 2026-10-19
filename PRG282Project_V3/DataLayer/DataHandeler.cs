@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
@@ -31,6 +32,22 @@ namespace PRG282Project_V3.DataLayer {
         public void SaveAnimals(List<Animal> animals) {
             var lines = animals.Select(a => $"{a.AnimalID}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}");
             File.WriteAllLines(filePath, lines);
+        }
+
+        public bool AddAnimal(Animal a, out string error) {
+            error = "";
+            try {
+                File.AppendAllText(filePath, $"{a.AnimalID}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}{Environment.NewLine}");
+                return true;
+            }
+            catch (IOException ex) {
+                error = $"Could not write to {filePath}: {ex.Message}";
+                return false;
+            }
+            catch (UnauthorizedAccessException) {
+                error = $"Access to {filePath} was denied.";
+                return false;
+            }
         }
     }
 }
