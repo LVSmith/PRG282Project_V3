@@ -1,10 +1,7 @@
 ﻿using PRG282Project_V3.DataLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace PRG282Project_V3.BusinessLayer {
     public class AnimalManager {

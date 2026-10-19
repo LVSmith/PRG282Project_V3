@@ -1,10 +1,10 @@
-﻿using PRG282Project_V3.BusinessLayer;
-using PRG282Project_V3.DataLayer;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using PRG282Project_V3.BusinessLayer;
+using PRG282Project_V3.DataLayer;
 
-namespace PRG282Project_V3 {
+namespace PRG282Project_V3.PresentationLayer {
     public partial class Update : Form {
         private AnimalManager manager = new AnimalManager();
 

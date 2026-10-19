@@ -1,4 +1,4 @@
-﻿namespace PRG282Project_V3
+﻿namespace PRG282Project_V3.PresentationLayer
 {
     partial class Update
     {
