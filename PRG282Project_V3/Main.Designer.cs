@@ -1,6 +1,6 @@
 ﻿namespace PRG282Project_V3
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
