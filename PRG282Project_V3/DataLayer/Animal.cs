@@ -1,9 +1,8 @@
-﻿namespace PRG282Project_V3.DataLayer
-{
-    public class Animal
-    {
-        public Animal(string animalID, string name, string species, int age, int recoveryScore, string status, string housingUnit)
-        {
+﻿namespace PRG282Project_V3.DataLayer {
+    public class Animal {
+        public Animal() { }
+
+        public Animal(string animalID, string name, string species, int age, int recoveryScore, string status, string housingUnit) {
             AnimalID = animalID;
             Name = name;
             Species = species;
@@ -21,5 +20,4 @@
         public string Status { get; set; }
         public string HousingUnit { get; set; }
     }
-
 }
