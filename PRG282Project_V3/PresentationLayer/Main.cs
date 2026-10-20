@@ -11,10 +11,6 @@ namespace PRG282Project_V3
 {
     public partial class Main : Form 
     {
-        public Main()
-        {
-            InitializeComponent();
-        }
         private AnimalManager manager = new AnimalManager();
 
         // Grid view for displaying animal records.
@@ -121,20 +117,20 @@ namespace PRG282Project_V3
 
         private void btnUpdatePage_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0)
+            if (dgvAnimals.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a record to update.");
                 return;
             }
 
             // Get selected row values
-            string id = dataGridView1.SelectedRows[0].Cells["AnimalID"].Value.ToString();
-            string name = dataGridView1.SelectedRows[0].Cells["Name"].Value.ToString();
-            string species = dataGridView1.SelectedRows[0].Cells["Species"].Value.ToString();
-            string age = dataGridView1.SelectedRows[0].Cells["Age"].Value.ToString();
-            string score = dataGridView1.SelectedRows[0].Cells["RecoveryScore"].Value.ToString();
-            string status = dataGridView1.SelectedRows[0].Cells["Status"].Value.ToString();
-            string housing = dataGridView1.SelectedRows[0].Cells["HousingUnit"].Value.ToString();
+            string id = dgvAnimals.SelectedRows[0].Cells["AnimalID"].Value.ToString();
+            string name = dgvAnimals.SelectedRows[0].Cells["Name"].Value.ToString();
+            string species = dgvAnimals.SelectedRows[0].Cells["Species"].Value.ToString();
+            string age = dgvAnimals.SelectedRows[0].Cells["Age"].Value.ToString();
+            string score = dgvAnimals.SelectedRows[0].Cells["RecoveryScore"].Value.ToString();
+            string status = dgvAnimals.SelectedRows[0].Cells["Status"].Value.ToString();
+            string housing = dgvAnimals.SelectedRows[0].Cells["HousingUnit"].Value.ToString();
 
             // Pass values into Update form
             Update updateForm = new Update(id, name, species, age, score, status, housing);
@@ -156,8 +152,8 @@ namespace PRG282Project_V3
             }
 
             // Get selected animal
-            string id = dataGridView1.SelectedRows[0].Cells["AnimalID"].Value.ToString();
-            string name = dataGridView1.SelectedRows[0].Cells["Name"].Value.ToString();
+            string id = dgvAnimals.SelectedRows[0].Cells["AnimalID"].Value.ToString();
+            string name = dgvAnimals.SelectedRows[0].Cells["Name"].Value.ToString();
 
             // Confirm deletion
             var confirm = MessageBox.Show($"Delete {id} ({name})? This cannot be undone.",

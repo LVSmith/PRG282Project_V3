@@ -5,5 +5,9 @@
  <Compile Include="../PRG282Project_V3/BusinessLayer/*.cs" />
  <Compile Include="../PRG282Project_V3/PresentationLayer/Main*.cs" />
  <Compile Include="Checks.cs" />
+<Compile Include="PresentationLayer\Main.cs" />
+<Compile Include="PresentationLayer\Main.Designer.cs" />
+<EmbeddedResource Include="PresentationLayer\Main.resx" />
+
  </ItemGroup>
 </Project>
