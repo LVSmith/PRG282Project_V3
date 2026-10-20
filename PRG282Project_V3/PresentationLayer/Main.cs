@@ -1,46 +1,119 @@
-﻿using System;
+﻿
+
+using System;
 using System.Windows.Forms;
 using PRG282Project_V3.BusinessLayer;
 using PRG282Project_V3.DataLayer;
 
-namespace PRG282Project_V3 {
-    public partial class Main : Form {
+namespace PRG282Project_V3
+{
+    public partial class Main : Form
+    {
         private AnimalManager manager = new AnimalManager();
 
+        // Grid view for displaying animal records.
+        private DataGridView dgvAnimals;
+
         /// <summary>
-        /// Creates the main form
+        /// Creates the main form and displays animal records.
         /// </summary>
-        public Main() {
+        public Main()
+        {
             InitializeComponent();
+
+            // Create and configure the grid view.
+            dgvAnimals = new DataGridView();
+            dgvAnimals.Name = "dgvAnimals";
+            dgvAnimals.Dock = DockStyle.Bottom;
+            dgvAnimals.Height = 200;
+            dgvAnimals.ReadOnly = true;
+            dgvAnimals.AllowUserToAddRows = false;
+            dgvAnimals.AllowUserToDeleteRows = false;
+            dgvAnimals.AutoSizeColumnsMode =
+                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAnimals.AutoGenerateColumns = true;
+            dgvAnimals.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+            dgvAnimals.MultiSelect = false;
+
+            // Add the grid to the form.
+            Controls.Add(dgvAnimals);
+
+            // Load existing animal records.
+            RefreshAnimals();
         }
 
         /// <summary>
-        /// Validates the input boxes, saves the new animal, and clears the form
+        /// Validates the input boxes, saves the new animal, and clears the form.
         /// </summary>
-        private void btnAdd_Click(object sender, EventArgs e) {
-            if (!manager.ValidateAnimal(txtAnimalId.Text, txtName.Text, txtSpecies.Text, txtAge.Text, txtScore.Text,
-                    true, out Animal animal, out string error, out string field)) {
-                MessageBox.Show(error, @"Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!manager.ValidateAnimal(
+                txtAnimalId.Text,
+                txtName.Text,
+                txtSpecies.Text,
+                txtAge.Text,
+                txtScore.Text,
+                true,
+                out Animal animal,
+                out string error,
+                out string field))
+            {
+                MessageBox.Show(
+                    error,
+                    "Invalid input",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
                 FocusField(field);
                 return;
             }
 
-            if (!manager.AddAnimal(animal, out error)) {
-                MessageBox.Show(error, @"Save failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!manager.AddAnimal(animal, out error))
+            {
+                MessageBox.Show(
+                    error,
+                    "Save failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
                 return;
             }
 
-            MessageBox.Show($"{animal.AnimalID} added.\nStatus: {animal.Status}\nHousing: {animal.HousingUnit}", @"Animal added");
-            foreach (var box in new[] { txtAnimalId, txtName, txtSpecies, txtAge, txtScore }) box.Clear();
+            MessageBox.Show(
+                $"{animal.AnimalID} added.\nStatus: {animal.Status}\nHousing: {animal.HousingUnit}",
+                "Animal added");
+
+            foreach (var box in new[]
+            {
+                txtAnimalId, txtName, txtSpecies, txtAge, txtScore
+            })
+            {
+                box.Clear();
+            }
+
             txtAnimalId.Focus();
+
+            // Refresh the grid after adding an animal.
+            RefreshAnimals();
         }
 
         /// <summary>
-        /// Puts the cursor in the box for the given field and selects its text
+        /// Loads the latest animal records into the grid.
         /// </summary>
-        /// <param name="field">The field name returned by ValidateAnimal</param>
-        private void FocusField(string field) {
-            TextBox box = field switch {
+        private void RefreshAnimals()
+        {
+            dgvAnimals.DataSource = null;
+            dgvAnimals.DataSource = manager.GetAllAnimals();
+        }
+
+        /// <summary>
+        /// Puts the cursor in the box for the given field and selects its text.
+        /// </summary>
+        private void FocusField(string field)
+        {
+            TextBox box = field switch
+            {
                 "AnimalID" => txtAnimalId,
                 "Name" => txtName,
                 "Species" => txtSpecies,
@@ -48,7 +121,9 @@ namespace PRG282Project_V3 {
                 "RecoveryScore" => txtScore,
                 _ => null
             };
+
             if (box == null) return;
+
             box.Focus();
             box.SelectAll();
         }
