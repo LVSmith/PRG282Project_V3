@@ -7,8 +7,14 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PRG282Project_V3 {
-    public partial class Main : Form {
+namespace PRG282Project_V3 
+{
+    public partial class Main : Form 
+    {
+        public Main()
+        {
+            InitializeComponent();
+        }
         private AnimalManager manager = new AnimalManager();
 
         // Grid view for displaying animal records.

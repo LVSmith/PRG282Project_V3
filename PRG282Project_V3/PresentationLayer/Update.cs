@@ -6,8 +6,10 @@ using PRG282Project_V3.DataLayer;
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 
-namespace PRG282Project_V3.PresentationLayer {
-    public partial class Update : Form {
+namespace PRG282Project_V3.PresentationLayer 
+{
+    public partial class Update : Form 
+    {
         private AnimalManager manager = new AnimalManager();
 
         public Update(string id, string name, string species, string age, string score, string status, string housing)
