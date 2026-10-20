@@ -42,6 +42,8 @@ namespace PRG282Project_V3
             btnUpdatePage = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
+            dgvAnimals = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             SuspendLayout();
             // 
             // lblAnimalId
@@ -126,7 +128,7 @@ namespace PRG282Project_V3
             // 
             // btnAdd
             // 
-            btnAdd.Location = new System.Drawing.Point(140, 230);
+            btnAdd.Location = new System.Drawing.Point(103, 230);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new System.Drawing.Size(88, 26);
             btnAdd.TabIndex = 5;
@@ -136,7 +138,7 @@ namespace PRG282Project_V3
             // 
             // btnUpdatePage
             // 
-            btnUpdatePage.Location = new System.Drawing.Point(35, 296);
+            btnUpdatePage.Location = new System.Drawing.Point(12, 330);
             btnUpdatePage.Name = "btnUpdatePage";
             btnUpdatePage.Size = new System.Drawing.Size(75, 23);
             btnUpdatePage.TabIndex = 6;
@@ -146,7 +148,7 @@ namespace PRG282Project_V3
             // 
             // btnClose
             // 
-            btnClose.Location = new System.Drawing.Point(197, 296);
+            btnClose.Location = new System.Drawing.Point(569, 330);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(75, 23);
             btnClose.TabIndex = 7;
@@ -156,7 +158,7 @@ namespace PRG282Project_V3
             // 
             // btnDelete
             // 
-            btnDelete.Location = new System.Drawing.Point(116, 296);
+            btnDelete.Location = new System.Drawing.Point(276, 330);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(75, 23);
             btnDelete.TabIndex = 8;
@@ -164,12 +166,24 @@ namespace PRG282Project_V3
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
+            // dgvAnimals
+            // 
+            dgvAnimals.AllowUserToAddRows = false;
+            dgvAnimals.AllowUserToDeleteRows = false;
+            dgvAnimals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAnimals.Location = new System.Drawing.Point(332, 38);
+            dgvAnimals.Name = "dgvAnimals";
+            dgvAnimals.ReadOnly = true;
+            dgvAnimals.Size = new System.Drawing.Size(303, 281);
+            dgvAnimals.TabIndex = 9;
+            // 
             // Main
             // 
             AcceptButton = btnAdd;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(308, 365);
+            ClientSize = new System.Drawing.Size(656, 365);
+            Controls.Add(dgvAnimals);
             Controls.Add(btnDelete);
             Controls.Add(btnClose);
             Controls.Add(btnUpdatePage);
@@ -186,6 +200,7 @@ namespace PRG282Project_V3
             Controls.Add(btnAdd);
             Name = "Main";
             Text = "Wildlife Rescue - Animal Records";
+            ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -206,5 +221,6 @@ namespace PRG282Project_V3
         private System.Windows.Forms.Button btnUpdatePage;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridView dgvAnimals;
     }
 }
