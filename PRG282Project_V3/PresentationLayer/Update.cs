@@ -10,8 +10,20 @@ namespace PRG282Project_V3.PresentationLayer {
     public partial class Update : Form {
         private AnimalManager manager = new AnimalManager();
 
-        public Update() {
+        public Update(string id, string name, string species, string age, string score, string status, string housing)
+        {
             InitializeComponent();
+
+            // Auto-fill OLD panel
+            txbOUID.Text = id;
+            txbOUName.Text = name;
+            txbOUSpecies.Text = species;
+            txbOUAge.Text = age;
+            txbOURecoveryScore.Text = score;
+            txbOUStatus.Text = status;
+            txbOUHousingUnit.Text = housing;
+
+            pnlNew.Enabled = true; // enable NEW panel for editing
         }
 
         private void label3_Click(object sender, EventArgs e) { }
