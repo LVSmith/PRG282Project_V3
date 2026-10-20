@@ -2,30 +2,36 @@
 using System.Windows.Forms;
 using PRG282Project_V3.BusinessLayer;
 using PRG282Project_V3.DataLayer;
+using PRG282Project_V3.PresentationLayer;
 
 namespace PRG282Project_V3 {
-    public partial class Main : Form {
+    public partial class Main : Form
+    {
         private AnimalManager manager = new AnimalManager();
 
         /// <summary>
         /// Creates the main form
         /// </summary>
-        public Main() {
+        public Main()
+        {
             InitializeComponent();
         }
 
         /// <summary>
         /// Validates the input boxes, saves the new animal, and clears the form
         /// </summary>
-        private void btnAdd_Click(object sender, EventArgs e) {
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
             if (!manager.ValidateAnimal(txtAnimalId.Text, txtName.Text, txtSpecies.Text, txtAge.Text, txtScore.Text,
-                    true, out Animal animal, out string error, out string field)) {
+                    true, out Animal animal, out string error, out string field))
+            {
                 MessageBox.Show(error, @"Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 FocusField(field);
                 return;
             }
 
-            if (!manager.AddAnimal(animal, out error)) {
+            if (!manager.AddAnimal(animal, out error))
+            {
                 MessageBox.Show(error, @"Save failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -39,8 +45,10 @@ namespace PRG282Project_V3 {
         /// Puts the cursor in the box for the given field and selects its text
         /// </summary>
         /// <param name="field">The field name returned by ValidateAnimal</param>
-        private void FocusField(string field) {
-            TextBox box = field switch {
+        private void FocusField(string field)
+        {
+            TextBox box = field switch
+            {
                 "AnimalID" => txtAnimalId,
                 "Name" => txtName,
                 "Species" => txtSpecies,
@@ -51,6 +59,18 @@ namespace PRG282Project_V3 {
             if (box == null) return;
             box.Focus();
             box.SelectAll();
+        }
+
+        private void btnUpdatePage_Click(object sender, EventArgs e)
+        {
+            Update updateForm = new Update();
+            updateForm.Show();
+            this.Hide();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
