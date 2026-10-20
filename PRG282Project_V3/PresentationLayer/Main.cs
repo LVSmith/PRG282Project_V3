@@ -151,13 +151,12 @@ namespace PRG282Project_V3
                 return;
             }
 
-            // Get selected animal
             string id = dgvAnimals.SelectedRows[0].Cells["AnimalID"].Value.ToString();
             string name = dgvAnimals.SelectedRows[0].Cells["Name"].Value.ToString();
 
-            // Confirm deletion
             var confirm = MessageBox.Show($"Delete {id} ({name})? This cannot be undone.",
                                           "Confirm Delete", MessageBoxButtons.YesNo);
+
             if (confirm == DialogResult.Yes)
             {
                 var animals = manager.GetAllAnimals();
@@ -166,12 +165,12 @@ namespace PRG282Project_V3
                 if (toRemove != null)
                 {
                     animals.Remove(toRemove);
-                    manager.SaveAnimals(animals); // rewrite file
+                    manager.SaveAnimals(animals);
                     MessageBox.Show("Record deleted successfully!");
-                    RefreshGrid(); // reload DataGridView
-                    btnUClear.PerformClick(); // clear form if deleted record was loaded
+                    RefreshAnimals(); 
                 }
             }
         }
+
     }
 }
