@@ -42,7 +42,6 @@ namespace PRG282Project_V3
             btnUpdatePage = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
-            
             SuspendLayout();
             // 
             // lblAnimalId
@@ -147,7 +146,7 @@ namespace PRG282Project_V3
             // 
             // btnClose
             // 
-            btnClose.Location = new System.Drawing.Point(569, 330);
+            btnClose.Location = new System.Drawing.Point(218, 330);
             btnClose.Name = "btnClose";
             btnClose.Size = new System.Drawing.Size(75, 23);
             btnClose.TabIndex = 7;
@@ -157,7 +156,7 @@ namespace PRG282Project_V3
             // 
             // btnDelete
             // 
-            btnDelete.Location = new System.Drawing.Point(276, 330);
+            btnDelete.Location = new System.Drawing.Point(116, 330);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new System.Drawing.Size(75, 23);
             btnDelete.TabIndex = 8;
@@ -170,7 +169,7 @@ namespace PRG282Project_V3
             AcceptButton = btnAdd;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(656, 365);            
+            ClientSize = new System.Drawing.Size(656, 365);
             Controls.Add(btnDelete);
             Controls.Add(btnClose);
             Controls.Add(btnUpdatePage);
@@ -186,7 +185,7 @@ namespace PRG282Project_V3
             Controls.Add(txtScore);
             Controls.Add(btnAdd);
             Name = "Main";
-            Text = "Wildlife Rescue - Animal Records";            
+            Text = "Wildlife Rescue - Animal Records";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -207,6 +206,7 @@ namespace PRG282Project_V3
         private System.Windows.Forms.Button btnUpdatePage;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridView dgvAnimals;
         private System.Windows.Forms.DataGridView dgvAnimals;
     }
 }

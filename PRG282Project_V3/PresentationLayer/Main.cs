@@ -24,17 +24,7 @@ namespace PRG282Project_V3
             InitializeComponent();
 
             // Create and configure the grid view.
-            dgvAnimals = new DataGridView();
-            dgvAnimals.Name = "dgvAnimals";
-            dgvAnimals.Dock = DockStyle.None;
-            dgvAnimals.Left = 10;
-            dgvAnimals.Top = btnAdd.Bottom + 15;
-            dgvAnimals.Width = ClientSize.Width - 20;
-            dgvAnimals.Height = ClientSize.Height - dgvAnimals.Top - 10;
-            dgvAnimals.Anchor = AnchorStyles.Top |
-                                AnchorStyles.Bottom |
-                                AnchorStyles.Left |
-                                AnchorStyles.Right;
+            
             dgvAnimals.ReadOnly = true;
             dgvAnimals.AllowUserToAddRows = false;
             dgvAnimals.AllowUserToDeleteRows = false;
@@ -44,9 +34,6 @@ namespace PRG282Project_V3
             dgvAnimals.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
             dgvAnimals.MultiSelect = false;
-
-            // Add the grid to the form.
-            Controls.Add(dgvAnimals);
 
             // Load existing animal records.
             RefreshAnimals();
