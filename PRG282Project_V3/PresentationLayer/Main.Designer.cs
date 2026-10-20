@@ -42,8 +42,7 @@ namespace PRG282Project_V3
             btnUpdatePage = new System.Windows.Forms.Button();
             btnClose = new System.Windows.Forms.Button();
             btnDelete = new System.Windows.Forms.Button();
-            dgvAnimals = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
+            
             SuspendLayout();
             // 
             // lblAnimalId
@@ -166,24 +165,12 @@ namespace PRG282Project_V3
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
-            // dgvAnimals
-            // 
-            dgvAnimals.AllowUserToAddRows = false;
-            dgvAnimals.AllowUserToDeleteRows = false;
-            dgvAnimals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAnimals.Location = new System.Drawing.Point(332, 38);
-            dgvAnimals.Name = "dgvAnimals";
-            dgvAnimals.ReadOnly = true;
-            dgvAnimals.Size = new System.Drawing.Size(303, 281);
-            dgvAnimals.TabIndex = 9;
-            // 
             // Main
             // 
             AcceptButton = btnAdd;
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(656, 365);
-            Controls.Add(dgvAnimals);
+            ClientSize = new System.Drawing.Size(656, 365);            
             Controls.Add(btnDelete);
             Controls.Add(btnClose);
             Controls.Add(btnUpdatePage);
@@ -199,8 +186,7 @@ namespace PRG282Project_V3
             Controls.Add(txtScore);
             Controls.Add(btnAdd);
             Name = "Main";
-            Text = "Wildlife Rescue - Animal Records";
-            ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
+            Text = "Wildlife Rescue - Animal Records";            
             ResumeLayout(false);
             PerformLayout();
         }

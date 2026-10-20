@@ -145,7 +145,7 @@ namespace PRG282Project_V3
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 0)
+            if (dgvAnimals.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a record to delete.");
                 return;
